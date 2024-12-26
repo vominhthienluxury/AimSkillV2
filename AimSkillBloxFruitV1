@@ -1,0 +1,58 @@
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local mouse = player:GetMouse()
+
+
+function aimAtClosestEnemy()
+    local closestEnemy = nil
+    local closestDistance = math.huge
+
+    for _, enemy in pairs(workspace:GetChildren()) do
+        if enemy:IsA("Model") and enemy:FindFirstChild("Humanoid") then
+            local distance = (character.HumanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
+            if distance < closestDistance then
+                closestDistance = distance
+                closestEnemy = enemy
+            end
+        end
+    end
+
+    return closestEnemy
+end
+
+
+function useMeleSkill(skillKey)
+    local target = aimAtClosestEnemy()
+    if target then
+        print("skillkey" .. target.Name)
+       
+end
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed then
+        if input.KeyCode == Enum.KeyCode.Z then
+            useSkill("Z")
+        elseif input.KeyCode == Enum.KeyCode.X then
+            useSkill("X")
+        elseif input.KeyCode == Enum.KeyCode.C then
+            useSkill("C")
+        elseif input.KeyCode == Enum.KeyCode.V then
+            useSkill("V")
+      end
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed then
+        if input.KeyCode == Enum.KeyCode.Z then
+            useMeleSkill("Z")
+        elseif input.KeyCode == Enum.KeyCode.X then
+            useMeleSkill("X")
+        elseif input.KeyCode == Enum.KeyCode.C then
+            useMeleSkill("C")
+       end
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed then
+        if input.KeyCode == Enum.KeyCode.Z then
+            useGunSkill("Z")
+        elseif input.KeyCode == Enum.KeyCode.X then
+            useGunSkill("X")
+        end
+    end
+end)
